@@ -1,0 +1,58 @@
+; Bo Peng Assignment 1
+
+
+(define Fahrenheit->Celsius
+  (lambda (n)
+ (/ (* 5 (- n 32)) 9)))
+
+
+(define (last-element l)
+  (if (null? (cdr l)) (car l) (last-element (cdr l))))
+
+
+(define interval-contains?
+  (lambda (interval number) (if (and (not (< number (car interval))) (not (> number (last-element interval)))) '#t '#f)))
+
+
+(define small?
+  (lambda (i1 i2) (if (and (< (car i1) (last-element i2)) (>= (car i2)(last-element i1))) '#t '#f)))
+
+
+(define big?
+  (lambda (i1 i2) (if (and (> (car i1) (last-element i2)) (<= (car i2)(last-element i1))) '#t '#f)))
+
+
+(define interval-intersects?
+  (lambda (i1 i2) (if (or (big? i1 i2) (small? i1 i2)) '#f '#t)))
+
+
+(define new-interval
+  (lambda (i1 i2) (list (list (min (car i1) (car i2)) (max (last-element i1)(last-element i2))))))
+
+
+(define combine-interval
+  (lambda (i1 i2) (list i1 i2))))
+
+
+(define interval-union
+  (lambda (i1 i2) (if (interval-intersects? i1 i2) (new-interval i1 i2) (combine-interval i1 i2))))
+
+
+(define divisible-by-7?
+  (lambda (num) (if (eq? 0 (modulo num 7)) '#t '#f )))
+
+
+(define ends-with-7?
+  (lambda (num) (if  (eq? 7 (modulo num 10)) '#t '#f)))
+
+
+(define 1st
+  (lambda (l) (car l)))
+
+
+(define 2nd
+  (lambda (l) (cadr l)))
+
+
+(define 3rd
+  (lambda (l) (caddr l)))
